@@ -45,7 +45,7 @@ IF !util-choice! EQU 1 (
 
   ECHO !emails-input!
   pause
-  REM test WONG KOK RUI, Dumbass <h1410129@nushigh.edu.sg>; PANG CHEN JUN, MRF BOI <h1410088@nushigh.edu.sg>; XAVIER
+  REM test hello, jobb <derp@derpy.com>; sup fam, MRF, OC <yiii@ho.co>; lastguyhaha
   :op1-loop-1
   IF [!emails-input!] EQU [] (
     pause
