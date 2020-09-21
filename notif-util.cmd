@@ -38,35 +38,39 @@ SET invalid-choice-entered=0
 
 IF !util-choice! EQU 1 (
   SET /p emails-input="Copy-Paste Previous 'To'/'CC' Field: "
-  REM first change all "; " to ";" for batch delim
+  REM initial preprocessing: first change all "; " to ";" for batch delim. then change all " <" to "<"
   SET emails-input=!emails-input:; =;!
-  ECHO !emails-input!
   SET "emails-input=!emails-input: <=<!"
 
-  ECHO !emails-input!
-  pause
-  REM test hello, jobb <derp@derpy.com>; sup fam, MRF, OC <yiii@ho.co>; lastguyhaha
+  echo.
+  REM teststr: CPT (DR) DOCTORMAN, Senior Medical Officer, HQ of HQs <derp@derpy.com>; 1WO ENCIK AN CIK, Company Chief Trainer, 1Barbers <yiii@hello.com>; Some Guy With No Job And Email
   :op1-loop-1
   IF [!emails-input!] EQU [] (
-    pause
+    echo.
+    echo You can copy-paste the above list into your report. Note that it is NOT sorted by rank, and watch out for duplicates.
+    echo Please double-check with your own eyes.
+    echo.
     goto util-prog-eof
     )
   FOR /f "tokens=1* delims=;" %%G in ("!emails-input!") do (
-      echo %%G
-      echo START NEW SHIT
+
       set opt1-line-output=%%G
-      FOR /f "tokens=1* delims=<" %%X in ("!opt1-line-output!") do (
-          set opt1-line-output=%%X
-          echo !opt1-line-output!
-          FOR /f "tokens=1* delims=," %%A in ("!opt1-line-output!") do (
-            echo %%B
-          )
+      REM remove name, assuming no commas in name (remove everything to left of first comma+space)
+      set "opt1-line-output=!opt1-line-output:*, =!"
+
+      REM remove email, assuming email encased in <> chars
+      FOR /f "tokens=1* delims=<" %%A in ("!opt1-line-output!") do (
+        set opt1-line-output=%%A
       )
+
+
+      echo !opt1-line-output!
       set emails-input=%%H
+
 
   )
   goto op1-loop-1
-  pause
+
 )
 
 IF !util-choice! EQU 2 (
@@ -77,3 +81,7 @@ pause
 ENDLOCAL
 pause
 EXIT /B 0
+
+set "opt1-tbremoved=!opt1-line-output:*<=<!"
+echo !opt1-tbremoved!
+call set opt1-line-output=!opt1-line-output:!opt1-tbremoved!=!s
