@@ -18,7 +18,7 @@ SET invalid-choice-entered=0
   IF !util-choice! NEQ 1 IF !util-choice! NEQ 2 IF !util-choice! NEQ ? (
     IF !invalid-choice-entered! EQU 1 (
       ECHO.
-      ECHO Please enter only 1, 2, or ?
+      ECHO Please enter only 1, 2, q, or ?
     )
     ECHO.
     ECHO Possible Options:
@@ -35,7 +35,10 @@ SET invalid-choice-entered=0
   IF !util-choice! EQU ? (
     SET invalid-choice-entered=0
     ECHO.
-    ECHO //todo put help here lol
+    ECHO ================
+    ECHO HELP
+    ECHO ================
+
     SET util-choice=nothing
     GOTO prog_options_selector
   )
@@ -115,10 +118,10 @@ IF !util-choice! EQU 2 (
 )
 
 
-
 :util-prog-eof
 pause
-SET /p restart-util="Do you want to go again? y if yes, anything else if no"
+SET /p restart-util="Do you want to go again? y if yes, anything else if no: "
+
 if !restart-util! EQU y (
   SET util-choice=nothing
   goto prog_options_selector
@@ -126,7 +129,3 @@ if !restart-util! EQU y (
 ENDLOCAL
 pause
 EXIT /B 0
-
-set "opt1-tbremoved=!opt1-line-output:*<=<!"
-echo !opt1-tbremoved!
-call set opt1-line-output=!opt1-line-output:!opt1-tbremoved!=!s
