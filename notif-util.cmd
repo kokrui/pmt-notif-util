@@ -111,8 +111,16 @@ IF !util-choice! EQU 2 (
   )
   goto op1-loop-2
 )
-pause
+
+
+
 :util-prog-eof
+pause
+SET /p restart-util="Do you want to go again? y if yes, anything else if no"
+if !restart-util! EQU y (
+  SET util-choice=nothing
+  goto prog_options_selector
+)
 ENDLOCAL
 pause
 EXIT /B 0
