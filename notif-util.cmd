@@ -22,6 +22,7 @@ SET invalid-choice-entered=0
     ECHO [1] Report Appointment List Generation
     ECHO [2] Auto-populate "To:"/"CC:" - EZ Ctrl+K Utility
     ECHO [?] HELP
+    ECHO [q] QUIT
     ECHO.
     SET /p util-choice="Input Choice (number): "
     ECHO !util-choice!
