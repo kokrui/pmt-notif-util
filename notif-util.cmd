@@ -73,8 +73,43 @@ IF !util-choice! EQU 1 (
 
 )
 
-IF !util-choice! EQU 2 (
 
+IF !util-choice! EQU 2 (
+  SET /p emails-input="Copy-Paste Previous 'To'/'CC' Field: "
+  REM initial preprocessing: first change all "; " to ";" for batch delim. then change all " <" to "<"
+  SET emails-input=!emails-input:; =;!
+  SET "emails-input=!emails-input: <=<!"
+
+  echo.
+  REM teststr: CPT (DR) DOCTORMAN, Senior Medical Officer, HQ of HQs <derp@derpy.com>; 1WO ENCIK AN CIK, Company Chief Trainer, 1Barbers <yiii@hello.com>; Some Guy With No Job And Email
+  :op1-loop-2
+  IF [!emails-input!] EQU [] (
+    echo.
+    echo.
+    echo You can copy-paste the above string into Outlook's To/CC Field, and press Ctrl + K to automatically expand and find the relavant person at that appointment. Not everything might auto-expand though
+    echo Please double-check with your own eyes.
+    echo.
+    goto util-prog-eof
+    )
+  FOR /f "tokens=1* delims=;" %%G in ("!emails-input!") do (
+
+      set opt2-line-output=%%G
+      REM remove name, assuming no commas in name (remove everything to left of first comma+space)
+      set "opt2-line-output=!opt2-line-output:*, =!"
+
+      REM remove email, assuming email encased in <> chars
+      FOR /f "tokens=1* delims=<" %%A in ("!opt2-line-output!") do (
+        set opt2-line-output=%%A
+      )
+
+      <NUL set /p =!opt2-line-output!
+      <NUL set /p =;
+
+      set emails-input=%%H
+
+
+  )
+  goto op1-loop-2
 )
 pause
 :util-prog-eof
