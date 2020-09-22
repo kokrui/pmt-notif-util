@@ -1,6 +1,8 @@
 @ECHO off
 SETLOCAL EnableDelayedExpansion
 
+REM teststr: CPT (DR) DOCTORMAN, Senior Medical Officer, HQ of HQs <derp@derpy.com>; 1WO ENCIK AN CIK, Company Chief Trainer, 1Barbers <yiii@hello.com>; Some Guy With No Job And Email
+
 REM PMT Notification/Report Email-Writing Utility
 REM written by wong kok rui
 
@@ -12,6 +14,7 @@ SET util-choice=nothing
 SET invalid-choice-entered=0
 
 :prog_options_selector
+  IF !util-choice! EQU q EXIT /B 0
   IF !util-choice! NEQ 1 IF !util-choice! NEQ 2 IF !util-choice! NEQ ? (
     IF !invalid-choice-entered! EQU 1 (
       ECHO.
@@ -44,7 +47,6 @@ IF !util-choice! EQU 1 (
   SET "emails-input=!emails-input: <=<!"
 
   echo.
-  REM teststr: CPT (DR) DOCTORMAN, Senior Medical Officer, HQ of HQs <derp@derpy.com>; 1WO ENCIK AN CIK, Company Chief Trainer, 1Barbers <yiii@hello.com>; Some Guy With No Job And Email
   :op1-loop-1
   IF [!emails-input!] EQU [] (
     echo.
@@ -82,8 +84,7 @@ IF !util-choice! EQU 2 (
   SET "emails-input=!emails-input: <=<!"
 
   echo.
-  REM teststr: CPT (DR) DOCTORMAN, Senior Medical Officer, HQ of HQs <derp@derpy.com>; 1WO ENCIK AN CIK, Company Chief Trainer, 1Barbers <yiii@hello.com>; Some Guy With No Job And Email
-  :op1-loop-2
+  :op2-loop-1
   IF [!emails-input!] EQU [] (
     echo.
     echo.
@@ -110,7 +111,7 @@ IF !util-choice! EQU 2 (
 
 
   )
-  goto op1-loop-2
+  goto op2-loop-1
 )
 
 
