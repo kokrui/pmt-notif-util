@@ -23,7 +23,7 @@ SET invalid-choice-entered=0
     ECHO.
     ECHO Possible Options:
     ECHO [1] Report Appointment List Generation
-    ECHO [2] Auto-populate "To:"/"CC:" - EZ Ctrl+K Utility
+    ECHO [2] "To:"/"CC:" - Easy Ctrl+K Utility
     ECHO [?] HELP
     ECHO [q] QUIT
     ECHO.
@@ -38,6 +38,14 @@ SET invalid-choice-entered=0
     ECHO ================
     ECHO HELP
     ECHO ================
+    ECHO .
+
+    ECHO [1] Report Appointment List Generation
+    ECHO Given a copy-pasted list of contacts in the format [name, appointment <e@mail.com>] (preferably copied from a previous email to the same camp), generates a list of all the appointments separated by newlines for purposes of Audit Report
+    ECHO.
+
+    ECHO [2] "To:"/"CC:" - Easy Ctrl+K Utility
+    ECHO Given a copy-pasted list of contacts in the format [name, appointment <e@mail.com>] (preferably copied from a previous email to the same camp), generates a list of all the appointments separated by semicolons for purposes of sending out emails
 
     SET util-choice=nothing
     GOTO prog_options_selector
@@ -120,7 +128,7 @@ IF !util-choice! EQU 2 (
 
 :util-prog-eof
 pause
-SET /p restart-util="Do you want to go again? y if yes, anything else if no: "
+SET /p restart-util="Restart? y if yes, anything else if no: "
 
 if !restart-util! EQU y (
   SET util-choice=nothing
